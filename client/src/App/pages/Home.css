@@ -1,0 +1,16 @@
+ul {
+    list-style-type: none;
+}
+.home {
+    text-align: center;
+}
+.lists {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.lists div {
+    align-content: left;
+    justify-content: left;
+}

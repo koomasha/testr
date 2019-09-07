@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const readline = require('readline');
 
-const port = 3000;
+const port = 5000;
 const url = 'http://146.148.69.106';
 const timeOut = 1000000;
 
@@ -16,7 +16,6 @@ let twittsCounter = 0;
 let startTime;
 
 http.get(url, function (res) {
-    setTimeout(() => res.destroy(), timeOut);
     const myInterface = readline.createInterface({
         input: res
     });
@@ -65,16 +64,32 @@ const getTopItems = (items, numOfItems) => {
     itemsArray = itemsArray.sort(function(a,b){return b.value - a.value})
     return itemsArray.slice(0, numOfItems);
 }
+const getAllTopData = (numOfItems) => {
+    return {
+        users: getTopItems(dict.users, 10),
+        words: getTopItems(dict.words, 10),
+        hashtags: getTopItems(dict.hashtags, 10),
+        avg: computeAvgTwitts().toString(),
+    }
+}
 const computeAvgTwitts = () => {
     const ms = Date.now() - startTime;
-    console.log(twittsCounter);   
-    console.log(twittsCounter/(Math.floor((ms)/1000)));   
     return (twittsCounter/(Math.floor((ms)/1000)));
 }
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
+
+app.use(allowCrossDomain);
 app.get('/top-words', (req, res) => res.send(getTopItems(dict.words, 10)));
 app.get('/top-users', (req, res) => res.send(getTopItems(dict.users, 10)));
 app.get('/top-hashtags', (req, res) => res.send(getTopItems(dict.hashtags, 10)));
 app.get('/avg-twitts', (req, res) => res.send(computeAvgTwitts().toString()));
+app.get('/top-data', (req, res) => res.send(getAllTopData(10)));
 
 app.listen(port, () => startTime = new Date());
 
