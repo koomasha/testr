@@ -90,7 +90,7 @@ app.get('/top-words', (req, res) => res.send(getTopItems(dict.words, 10)));
 app.get('/top-users', (req, res) => res.send(getTopItems(dict.users, 10)));
 app.get('/top-hashtags', (req, res) => res.send(getTopItems(dict.hashtags, 10)));
 app.get('/avg-twitts', (req, res) => res.send(computeAvgTwitts().toString()));
-app.get('/top-data', (req, res) => res.send(getAllData(10)));
+app.get('/', (req, res) => res.send(getAllData(10)));
 
 app.listen(port, () => startTime = new Date());
 

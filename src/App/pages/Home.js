@@ -12,7 +12,7 @@ class Home extends Component {
         }
     }
     getData = () => {
-        fetch('http://localhost:5000/top-data').then(res =>  res.json()).then(data => {
+        fetch('http://localhost:5000').then(res =>  res.json()).then(data => {
             if(data) {
                 this.setState({users: data.users});
                 this.setState({words: data.words});
