@@ -31,7 +31,7 @@ http.get(twitterStream, function (res) {
 });
 const setWordsDictionary = (twitt) => {
     const textArray = twitt.text.split(' ');
-    for(word of textArray) {
+    for(const word of textArray) {
         if(dict.words[word]) {
             dict.words[word] += 1;
         } else {
@@ -48,7 +48,7 @@ const setUsersDictionary = (twitt) => {
 }
 const setHastagsDictionary = (twitt) => {
     if(twitt.entities.hashtags.length) {
-        for(hashtag of twitt.entities.hashtags) {
+        for(const hashtag of twitt.entities.hashtags) {
             if(dict.hashtags[hashtag.text]) {
                 dict.hashtags[hashtag.text] += 1;
             } else {
@@ -66,9 +66,9 @@ const getTopItems = (items, numOfItems) => {
 }
 const getAllData = (numOfItems) => {
     return {
-        users: getTopItems(dict.users, 10),
-        words: getTopItems(dict.words, 10),
-        hashtags: getTopItems(dict.hashtags, 10),
+        users: getTopItems(dict.users, numOfItems),
+        words: getTopItems(dict.words, numOfItems),
+        hashtags: getTopItems(dict.hashtags, numOfItems),
         avg: computeAvgTwitts().toString(),
         serverStartTime: startTime, 
     }
