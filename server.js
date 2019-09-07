@@ -64,12 +64,13 @@ const getTopItems = (items, numOfItems) => {
     itemsArray = itemsArray.sort(function(a,b){return b.value - a.value})
     return itemsArray.slice(0, numOfItems);
 }
-const getAllTopData = (numOfItems) => {
+const getAllData = (numOfItems) => {
     return {
         users: getTopItems(dict.users, 10),
         words: getTopItems(dict.words, 10),
         hashtags: getTopItems(dict.hashtags, 10),
         avg: computeAvgTwitts().toString(),
+        serverStartTime: startTime, 
     }
 }
 const computeAvgTwitts = () => {
@@ -89,7 +90,7 @@ app.get('/top-words', (req, res) => res.send(getTopItems(dict.words, 10)));
 app.get('/top-users', (req, res) => res.send(getTopItems(dict.users, 10)));
 app.get('/top-hashtags', (req, res) => res.send(getTopItems(dict.hashtags, 10)));
 app.get('/avg-twitts', (req, res) => res.send(computeAvgTwitts().toString()));
-app.get('/top-data', (req, res) => res.send(getAllTopData(10)));
+app.get('/top-data', (req, res) => res.send(getAllData(10)));
 
 app.listen(port, () => startTime = new Date());
 

@@ -14,10 +14,11 @@ class Home extends Component {
     getData = () => {
         fetch('http://localhost:5000/top-data').then(res =>  res.json()).then(data => {
             if(data) {
-                this.setState({users: data.users})
-                this.setState({words: data.words})
-                this.setState({hashtags: data.hashtags})
-                this.setState({avg: data.avg})
+                this.setState({users: data.users});
+                this.setState({words: data.words});
+                this.setState({hashtags: data.hashtags});
+                this.setState({avg: data.avg});
+                this.setState({serverTime: Math.floor((new Date() - new Date(data.serverStartTime))/60000)});
             }
         });
     }
@@ -26,6 +27,7 @@ class Home extends Component {
         return (
             <div className="home">
             <h3> Avg twitts per second: {this.state.avg} </h3>
+            <h5> Server is runing for {this.state.serverTime} minutes</h5>
             <div className="lists">
                 <List data={this.state.users} dataType="users"/>
                 <List data={this.state.words} dataType="words"/>
