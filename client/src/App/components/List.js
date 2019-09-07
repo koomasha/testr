@@ -8,8 +8,8 @@ class List extends Component {
         }
     }
     filterList = () => {
-        const filter = document.getElementById(`${this.props.dataType}-filter`).value;
-        const filteredList = this.props.data.filter(d => d.key.includes(filter));
+        const filter = document.getElementById(`${this.props.dataType}-filter`).value.toLowerCase();
+        const filteredList = this.props.data.filter(d => d.key.toLowerCase().includes(filter));
         this.setState({ filteredList });
     }
     render() {
