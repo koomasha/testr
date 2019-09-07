@@ -4,8 +4,8 @@ const app = express();
 const readline = require('readline');
 
 const port = 5000;
-const url = 'http://146.148.69.106';
-const timeOut = 1000000;
+const clientDomain = 'http://localhost:3000';
+const twitterStream = 'http://146.148.69.106';
 
 const dict = {
     words: {},
@@ -15,7 +15,7 @@ const dict = {
 let twittsCounter = 0;
 let startTime;
 
-http.get(url, function (res) {
+http.get(twitterStream, function (res) {
     const myInterface = readline.createInterface({
         input: res
     });
@@ -77,7 +77,7 @@ const computeAvgTwitts = () => {
     return (twittsCounter/(Math.floor((ms)/1000)));
 }
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', clientDomain);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();

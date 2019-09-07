@@ -9,6 +9,7 @@ class List extends Component {
     );
     return (
       <div className={dataType}>
+        <h3>Top {dataType}</h3>  
         <ul>
           {listItems}
         </ul>
